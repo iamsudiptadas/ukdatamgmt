@@ -1,0 +1,1324 @@
+<title>वन M&E System — Uttarakhand Forest Dept.</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap">
+<style>
+/* ── TOKENS ── */
+:root{
+  --bg:#EFF4EF;--sf:#fff;--sf2:#E8F0E8;--sf3:#F7FAF7;
+  --bd:#C8D9C8;--fg:#111D11;--fg2:#3A5A3A;--fg3:#6A8A6A;
+  --p:#1A5C35;--pk:#0F3D22;--pm:#256E42;--pl:#D6EAE0;
+  --au:#C8860A;--aul:#FDF3DC;
+  --ok:#15803D;--okl:#DCFCE7;--er:#B91C1C;--erl:#FEE2E2;
+  --info:#1D5FA4;--infol:#DBEAFE;
+  --sw:244px;--hh:56px;--r:10px;
+  --sh:0 1px 4px rgba(0,0,0,.06);--shm:0 6px 20px rgba(0,0,0,.1);--shx:0 16px 48px rgba(0,0,0,.18);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#0A150A;--sf:#0F1F0F;--sf2:#162516;--sf3:#111A11;
+  --bd:#1E321E;--fg:#E0EEE0;--fg2:#7AAA7A;--fg3:#4A7A4A;
+  --p:#2DAA62;--pk:#228A4E;--pm:#38BF72;--pl:#0A2818;
+  --au:#F0B428;--aul:#2A1E00;
+  --ok:#4ADE80;--okl:#022B12;--er:#F87171;--erl:#2A0808;
+  --info:#60A5FA;--infol:#071628;
+  --sh:0 1px 4px rgba(0,0,0,.3);--shm:0 6px 20px rgba(0,0,0,.45);--shx:0 16px 48px rgba(0,0,0,.65);
+}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#0A150A;--sf:#0F1F0F;--sf2:#162516;--sf3:#111A11;
+  --bd:#1E321E;--fg:#E0EEE0;--fg2:#7AAA7A;--fg3:#4A7A4A;
+  --p:#2DAA62;--pk:#228A4E;--pm:#38BF72;--pl:#0A2818;
+  --au:#F0B428;--aul:#2A1E00;
+  --ok:#4ADE80;--okl:#022B12;--er:#F87171;--erl:#2A0808;
+  --info:#60A5FA;--infol:#071628;
+  --sh:0 1px 4px rgba(0,0,0,.3);--shm:0 6px 20px rgba(0,0,0,.45);--shx:0 16px 48px rgba(0,0,0,.65);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.5;
+  background:var(--bg);color:var(--fg);overflow-x:hidden}
+
+/* ══════════════ LOGIN ══════════════ */
+#ls{min-height:100vh;display:flex}
+#ls.gone{display:none!important}
+.lhero{flex:1;background:linear-gradient(160deg,#071E0C 0%,#0F3D22 35%,#1A5C35 70%,#2B7A4B 100%);
+  display:flex;flex-direction:column;justify-content:center;padding:52px 48px;
+  position:relative;overflow:hidden;min-height:280px}
+/* tree silhouettes */
+.lhero::before{content:'';position:absolute;bottom:0;left:0;right:0;height:180px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 180'%3E%3Cpolygon points='60,180 80,100 100,180' fill='%23082815'/%3E%3Cpolygon points='50,180 80,60 110,180' fill='%230A3018'/%3E%3Cpolygon points='140,180 165,90 190,180' fill='%230C3A1C'/%3E%3Cpolygon points='130,180 165,40 200,180' fill='%23082815'/%3E%3Cpolygon points='230,180 255,110 280,180' fill='%230A3018'/%3E%3Cpolygon points='320,180 350,70 380,180' fill='%23082815'/%3E%3Cpolygon points='310,180 350,30 390,180' fill='%230C3A1C'/%3E%3Cpolygon points='420,180 445,100 470,180' fill='%230A3018'/%3E%3Cpolygon points='500,180 530,80 560,180' fill='%23082815'/%3E%3Cpolygon points='490,180 530,45 570,180' fill='%230C3A1C'/%3E%3Cpolygon points='600,180 625,110 650,180' fill='%230A3018'/%3E%3Cpolygon points='680,180 710,75 740,180' fill='%23082815'/%3E%3Cpolygon points='670,180 710,35 750,180' fill='%230C3A1C'/%3E%3C/svg%3E") bottom/100% no-repeat}
+.lhero::after{content:'';position:absolute;top:20px;right:30px;width:120px;height:120px;
+  border-radius:50%;background:radial-gradient(circle,rgba(200,134,10,.12),transparent 70%)}
+/* Devbhoomi hero heading */
+.lh-devbhoomi{margin-bottom:22px}
+.lh-devb-deva{font-family:'Noto Sans Devanagari','Noto Serif',serif;font-size:28px;font-weight:700;
+  color:rgba(255,255,255,.96);letter-spacing:.01em;line-height:1.15;display:block;
+  text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.lh-devb-eng{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(255,220,120,.82);display:flex;align-items:center;gap:8px;margin-top:4px}
+.lh-devb-eng::before,.lh-devb-eng::after{content:'';flex:1;height:1px;background:rgba(255,220,120,.3)}
+.lh-title{font-family:'Noto Serif',serif;font-size:32px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:6px}
+.lh-sub{font-size:12.5px;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.65}
+/* Demo creds hint on hero */
+.lh-creds{background:rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.1);border-radius:8px;
+  padding:12px 14px;margin-top:auto;backdrop-filter:blur(4px)}
+.lh-creds-title{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,220,120,.8);margin-bottom:8px}
+.lh-cred-row{display:flex;gap:6px;align-items:baseline;font-size:10.5px;color:rgba(255,255,255,.75);margin-bottom:4px}
+.lh-cred-row:last-child{margin-bottom:0}
+.lh-cred-key{font-family:'Inter',monospace;font-size:10px;background:rgba(255,255,255,.1);
+  padding:1px 6px;border-radius:4px;color:rgba(255,255,255,.9);white-space:nowrap}
+.lh-feats{display:flex;flex-direction:column;gap:9px}
+.lh-feat{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.82);font-size:12px}
+.lh-fi{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.lform{width:400px;min-width:320px;background:var(--sf);padding:44px 40px;
+  display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
+@media(max-width:800px){
+  #ls{flex-direction:column}
+  .lhero{padding:32px 24px;min-height:200px}
+  .lhero::before{height:100px}
+  .lh-title{font-size:24px}
+  .lform{width:100%;padding:28px 24px}
+}
+.lf-top{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.lf-seal{width:42px;height:42px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.lf-title{font-family:'Noto Serif',serif;font-size:20px;font-weight:700;color:var(--fg)}
+.lf-sub{font-size:11px;color:var(--fg3)}
+.lf-label{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--fg3);margin-bottom:5px;display:block}
+.lf-input-wrap{position:relative;margin-bottom:14px}
+.lf-input{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:var(--r);
+  background:var(--sf3);color:var(--fg);font-size:14px;font-family:inherit;outline:none;
+  transition:border-color .18s,box-shadow .18s}
+.lf-input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(26,92,53,.12)}
+.lf-input.err{border-color:var(--er);box-shadow:0 0 0 3px rgba(185,28,28,.1)}
+.pass-wrap{position:relative}
+.pass-wrap .lf-input{padding-right:42px}
+.pass-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;
+  cursor:pointer;color:var(--fg3);font-size:16px;padding:2px 4px;line-height:1}
+.lf-err{font-size:11.5px;color:var(--er);margin-top:-10px;margin-bottom:12px;display:none}
+.lf-err.on{display:block}
+.btn-enter{width:100%;padding:13px;background:var(--p);color:#fff;border:none;border-radius:var(--r);
+  font-size:14.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .18s;letter-spacing:.01em;margin-bottom:14px}
+.btn-enter:hover{background:var(--pk)}
+.lf-guest-link{display:block;text-align:center;font-size:12.5px;color:var(--fg3);
+  text-decoration:none;cursor:pointer;padding:6px;border-radius:6px;transition:color .15s,background .15s}
+.lf-guest-link:hover{color:var(--p);background:var(--pl)}
+.gem-note{margin-top:16px;font-size:10px;color:var(--fg3);text-align:center;line-height:1.6}
+
+/* ══════════════ APP SHELL ══════════════ */
+#app{display:none}
+#app.on{display:block}
+
+/* Fixed header */
+.ah{height:var(--hh);
+  background:linear-gradient(135deg,#071E0C 0%,#0F3D22 40%,#1A5C35 70%,#1E6840 100%);
+  color:#fff;display:flex;align-items:center;
+  padding:0 max(16px,env(safe-area-inset-left,16px)) 0 max(16px,env(safe-area-inset-left,16px));
+  gap:12px;position:fixed;top:0;left:0;right:0;z-index:200;box-shadow:0 2px 14px rgba(0,0,0,.3)}
+.ah-logo{font-size:24px;flex-shrink:0}
+.ah-brand{flex:1;min-width:0}
+.ah-title{font-family:'Noto Serif',serif;font-size:15px;font-weight:700;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ah-sub{font-size:10px;opacity:.7;white-space:nowrap}
+.ah-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.ah-user{text-align:right}
+.ah-user-name{font-size:12.5px;font-weight:700}
+.ah-user-role{font-size:10px;opacity:.75}
+.btn-out{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;
+  padding:5px 13px;border-radius:6px;font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;
+  white-space:nowrap;transition:background .15s}
+.btn-out:hover{background:rgba(255,255,255,.24)}
+@media(max-width:600px){.ah-sub,.ah-user-role{display:none}}
+
+/* Body layout */
+.ab{display:flex;margin-top:var(--hh);min-height:calc(100vh - var(--hh))}
+
+/* Fixed sidebar */
+.sb{width:var(--sw);background:var(--sf);border-right:1px solid var(--bd);
+  position:fixed;top:var(--hh);bottom:0;left:0;overflow-y:auto;z-index:100;
+  padding:14px 0 20px;transition:transform .25s}
+@media(max-width:768px){.sb{transform:translateX(-100%);box-shadow:var(--shx)}.sb.open{transform:translateX(0)}}
+
+/* Mobile overlay */
+#mob-ov{display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.4)}
+#mob-ov.on{display:block}
+
+/* Main content — KEY: overflow:hidden prevents ghost text */
+.mc{flex:1;margin-left:var(--sw);background:var(--bg);
+  min-height:calc(100vh - var(--hh));overflow:hidden;
+  padding:24px max(20px,env(safe-area-inset-right,20px)) 40px max(20px,env(safe-area-inset-left,20px))}
+@media(max-width:768px){.mc{margin-left:0;padding:16px}}
+
+/* ══════════════ SCREENS — BULLETPROOF ══════════════ */
+/* Simple: display:none / display:block. The mc overflow:hidden clips everything. */
+.sc{display:none;background:var(--bg)}
+.sc.on{display:block}
+
+/* ══════════════ SIDEBAR ══════════════ */
+.sb-section{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--fg3);padding:14px 18px 5px;margin-top:4px}
+.sb-section:first-child{margin-top:0}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 10px 9px 14px;cursor:pointer;
+  border-radius:8px;margin:1px 8px;font-size:13px;font-weight:500;color:var(--fg2);transition:all .15s}
+.ni:hover{background:var(--sf2);color:var(--fg)}
+.ni.on{background:var(--pl);color:var(--p);font-weight:700}
+.ni-ico{width:22px;text-align:center;font-size:15px;flex-shrink:0}
+.sb-role{margin:12px 12px 0;background:var(--sf2);border-radius:8px;padding:10px 12px;font-size:11.5px}
+.sb-role-name{font-weight:700;color:var(--fg);font-size:12px}
+.sb-role-title{color:var(--fg3);font-size:10.5px;margin-top:1px}
+
+/* ══════════════ PAGE ELEMENTS ══════════════ */
+.ph{margin-bottom:20px}
+.ph-title{font-family:'Noto Serif',serif;font-size:22px;font-weight:700;color:var(--fg)}
+.ph-sub{font-size:12.5px;color:var(--fg3);margin-top:3px}
+
+/* Role access banner */
+.rbanner{border-radius:var(--r);padding:12px 16px;margin-bottom:18px;border-left:4px solid;font-size:13px;line-height:1.5}
+.rb-field{background:var(--pl);border-color:var(--p);color:var(--fg2)}
+.rb-dfo{background:var(--okl);border-color:var(--ok);color:#065F46}
+.rb-hq{background:var(--infol);border-color:var(--info);color:#1E3A5F}
+.rb-guest{background:var(--aul);border-color:var(--au);color:#78350F}
+@media(prefers-color-scheme:dark){
+  .rb-dfo{color:var(--ok)}
+  .rb-hq{color:var(--info)}
+  .rb-guest{color:var(--au)}
+}
+:root[data-theme="dark"] .rb-dfo{color:var(--ok)}
+:root[data-theme="dark"] .rb-hq{color:var(--info)}
+:root[data-theme="dark"] .rb-guest{color:var(--au)}
+
+/* Workflow trail */
+.wflow{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);
+  padding:16px 20px;margin-bottom:18px;display:flex;align-items:center;gap:0;overflow-x:auto}
+.wf-step{flex:1;text-align:center;font-size:11px;font-weight:600;color:var(--fg3);min-width:80px}
+.wf-step.done{color:var(--ok)}
+.wf-step.cur{color:var(--p);font-weight:800}
+.wf-ico{font-size:20px;display:block;margin-bottom:3px}
+.wf-arr{color:var(--bd);font-size:20px;flex-shrink:0;padding:0 4px}
+
+/* KPI tiles */
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+@media(max-width:720px){.g4{grid-template-columns:1fr 1fr}}
+.kc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden}
+.kc::before{content:attr(data-icon);position:absolute;right:12px;top:10px;font-size:26px;opacity:.15}
+.kc-l{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg3);margin-bottom:4px}
+.kc-v{font-size:28px;font-weight:800;color:var(--fg);line-height:1}
+.kc-n{font-size:11px;color:var(--fg3);margin-top:4px}
+.kc-green .kc-v{color:var(--ok)}
+.kc-amber .kc-v{color:var(--au)}
+.kc-red .kc-v{color:var(--er)}
+
+/* Cards */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:18px;overflow:hidden}
+.ch{padding:14px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px}
+.ch-t{font-size:14px;font-weight:700;flex:1;color:var(--fg)}
+.cb{padding:16px 18px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+@media(max-width:640px){.g2{grid-template-columns:1fr}}
+
+/* Tables */
+.dt{width:100%;border-collapse:collapse;font-size:13px}
+.dt th{background:var(--sf2);color:var(--fg3);font-size:9.5px;font-weight:800;letter-spacing:.07em;
+  text-transform:uppercase;padding:9px 14px;text-align:left;border-bottom:2px solid var(--bd);white-space:nowrap}
+.dt td{padding:11px 14px;border-bottom:1px solid var(--sf2);vertical-align:middle}
+.dt tr:last-child td{border-bottom:none}
+.dt tr:hover td{background:var(--sf3)}
+
+/* Status tags */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.tg-draft{background:var(--sf2);color:var(--fg3)}
+.tg-sub{background:var(--infol);color:var(--info)}
+.tg-app{background:var(--okl);color:var(--ok)}
+.tg-ret{background:var(--erl);color:var(--er)}
+
+/* Buttons */
+.btn{padding:8px 16px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;
+  border:none;font-family:inherit;transition:all .15s;white-space:nowrap}
+.bp{background:var(--p);color:#fff}.bp:hover{background:var(--pk)}
+.bo{background:var(--sf);color:var(--fg);border:1.5px solid var(--bd)}.bo:hover{border-color:var(--p);color:var(--p)}
+.bg{background:var(--ok);color:#fff}.bg:hover{filter:brightness(.9)}
+.br{background:var(--er);color:#fff}.br:hover{filter:brightness(.9)}
+.ba{background:var(--au);color:#fff}.ba:hover{filter:brightness(.9)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.dflex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* Forms */
+.fg{margin-bottom:14px}
+.fg2c{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:540px){.fg2c{grid-template-columns:1fr}}
+label.lbl{display:block;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--fg3);margin-bottom:5px}
+input,select,textarea{width:100%;padding:9px 12px;border:1.5px solid var(--bd);border-radius:7px;
+  font-size:13.5px;font-family:inherit;background:var(--sf);color:var(--fg);outline:none;transition:border-color .18s}
+input:focus,select:focus,textarea:focus{border-color:var(--p)}
+textarea{resize:vertical;min-height:80px}
+
+/* Progress bar */
+.pbar{height:8px;background:var(--bd);border-radius:4px;overflow:hidden;margin-top:4px}
+.pbar-fill{height:100%;border-radius:4px;transition:width .4s}
+
+/* ══════════════ PRAPATRA DETAIL MODAL ══════════════ */
+#modal{display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.62);overflow-y:auto;padding:24px max(16px,env(safe-area-inset-left,16px))}
+#modal.on{display:flex;align-items:flex-start;justify-content:center}
+.mp{background:var(--sf);width:100%;max-width:760px;border-radius:var(--r);
+  box-shadow:var(--shx);font-size:13px;overflow:hidden}
+.mp-head{background:linear-gradient(135deg,#0F3D22,#1A5C35);color:#fff;padding:18px 24px}
+.mp-h1{font-family:'Noto Serif',serif;font-size:18px;font-weight:700}
+.mp-h2{font-size:10.5px;opacity:.75;margin-top:2px}
+.mp-meta{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:2px solid var(--bd)}
+@media(max-width:540px){.mp-meta{grid-template-columns:1fr 1fr}}
+.mp-mc{padding:10px 16px;border-right:1px solid var(--bd);font-size:11.5px}
+.mp-mc:last-child{border-right:none}
+.mp-ml{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--fg3);margin-bottom:2px}
+.mp-mv{font-weight:700;color:var(--fg)}
+.mp-sec{padding:14px 20px;border-bottom:1px solid var(--sf2)}
+.mp-st{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:#fff;background:var(--p);padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.mp-row{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:4px}
+.mp-row3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:500px){.mp-row3{grid-template-columns:1fr 1fr}}
+.mp-f{padding:6px 8px;border-bottom:1px dashed var(--bd)}
+.mp-fl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg3)}
+.mp-fv{font-size:13.5px;font-weight:600;color:var(--fg);margin-top:1px}
+.mp-tbl{width:100%;border-collapse:collapse;font-size:12px;margin:4px 0 2px}
+.mp-tbl th{background:var(--sf2);color:var(--fg3);font-size:9px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;padding:6px 10px;border:1px solid var(--bd);text-align:left}
+.mp-tbl td{padding:7px 10px;border:1px solid var(--bd);vertical-align:middle}
+.mp-sigs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:18px 20px;background:var(--sf3)}
+.mp-sig{text-align:center}
+.mp-sig-line{border-top:1.5px solid var(--bd);margin:24px 0 6px}
+.mp-sig-name{font-size:11px;font-weight:700}
+.mp-sig-role{font-size:9.5px;color:var(--fg3)}
+.mp-cmts{padding:14px 20px;border-bottom:1px solid var(--bd)}
+.cmt{background:var(--sf2);border-radius:7px;padding:10px 14px;margin-bottom:8px;font-size:12.5px}
+.cmt-by{font-size:10.5px;font-weight:700;color:var(--fg3);margin-bottom:3px}
+.mp-acts{padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  background:var(--sf3);border-top:1px solid var(--bd)}
+
+/* ══════════════ TOAST ══════════════ */
+#toast{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:320px}
+.tst{background:var(--pk);color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;
+  font-weight:600;box-shadow:var(--shm);opacity:0;transform:translateY(8px);transition:all .3s;line-height:1.4}
+.tst.vis{opacity:1;transform:none}
+/* ══ CHARTS & MAP ══ */
+.chart-wrap{display:flex;align-items:center;justify-content:center;padding:14px 12px;min-height:240px}
+</style>
+
+<!-- ════════════════════════════════
+     LOGIN SCREEN
+     ════════════════════════════════ -->
+<div id="ls">
+  <div class="lhero">
+    <div class="lh-devbhoomi">
+      <span class="lh-devb-deva">देवभूमि उत्तराखण्ड</span>
+      <span class="lh-devb-eng">Devbhoomi Uttarakhand</span>
+    </div>
+    <div class="lh-title">Uttarakhand Forest<br>M&amp;E System</div>
+    <div class="lh-sub">Monitoring &amp; Evaluation · Prapatra Management<br>16 Divisions · 3 Circles · 10 Prapatra Formats</div>
+    <div class="lh-feats">
+      <div class="lh-feat"><div class="lh-fi">📋</div><span>10 Prapatra formats — Plantation, Nursery, SMC &amp; more</span></div>
+      <div class="lh-feat"><div class="lh-fi">🔐</div><span>Role-based access: Field Officer → DFO → HQ Approval flow</span></div>
+      <div class="lh-feat"><div class="lh-fi">📊</div><span>Real-time M&amp;E dashboard, compliance tracking, analytics</span></div>
+      <div class="lh-feat"><div class="lh-fi">📄</div><span>Official printable Prapatra format — government-ready</span></div>
+    </div>
+    <div class="lh-creds" style="margin-top:28px">
+      <div class="lh-creds-title">🔑 Demo Credentials</div>
+      <div class="lh-cred-row"><span class="lh-cred-key">field.officer</span><span style="color:rgba(255,255,255,.4)">·</span><span class="lh-cred-key">Forest@2026</span><span style="color:rgba(255,255,255,.55)">Field Officer</span></div>
+      <div class="lh-cred-row"><span class="lh-cred-key">dfo.dehradun</span><span style="color:rgba(255,255,255,.4)">·</span><span class="lh-cred-key">DFO@Secure1</span><span style="color:rgba(255,255,255,.55)">DFO / Approver</span></div>
+      <div class="lh-cred-row"><span class="lh-cred-key">hq.reviewer</span><span style="color:rgba(255,255,255,.4)">·</span><span class="lh-cred-key">HQMonitor#1</span><span style="color:rgba(255,255,255,.55)">HQ Reviewer</span></div>
+    </div>
+  </div>
+
+  <div class="lform">
+    <div class="lf-top">
+      <div class="lf-seal">🌲</div>
+      <div><div class="lf-title">Sign In</div><div class="lf-sub">वन विभाग, उत्तराखण्ड — M&amp;E System</div></div>
+    </div>
+
+    <label class="lf-label" for="lf-user">Username</label>
+    <div class="lf-input-wrap">
+      <input class="lf-input" id="lf-user" type="text" autocomplete="username" placeholder="e.g. field.officer"
+        onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+
+    <label class="lf-label" for="lf-pass">Password</label>
+    <div class="lf-input-wrap pass-wrap">
+      <input class="lf-input" id="lf-pass" type="password" autocomplete="current-password" placeholder="Enter password"
+        onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="pass-eye" type="button" onclick="togglePass()" id="pass-eye-btn" title="Show/hide password">👁</button>
+    </div>
+
+    <div class="lf-err" id="lf-err">⚠ Incorrect username or password. Please try again.</div>
+
+    <button class="btn-enter" onclick="doLogin()">Sign In →</button>
+
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="flex:1;height:1px;background:var(--bd)"></div>
+      <span style="font-size:11px;color:var(--fg3)">or</span>
+      <div style="flex:1;height:1px;background:var(--bd)"></div>
+    </div>
+
+    <span class="lf-guest-link" onclick="doGuestLogin()">
+      👁 Continue as Guest — View-only access, no login required
+    </span>
+
+    <div class="gem-note" style="margin-top:20px">
+      Devbhoomi Uttarakhand · वन विभाग, उत्तराखण्ड<br>
+      <span style="color:var(--p);font-weight:600">Demo System — Not for official use</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     APP SHELL
+     ════════════════════════════════ -->
+<div id="app">
+
+  <!-- Fixed header -->
+  <header class="ah">
+    <button class="btn-out" style="margin-left:0;padding:6px 10px;display:none" id="mob-menu" onclick="toggleSb()">☰</button>
+    <div class="ah-logo">🌲</div>
+    <div class="ah-brand">
+      <div class="ah-title">Uttarakhand Forest — M&amp;E System</div>
+      <div class="ah-sub">Devbhoomi Uttarakhand · वन विभाग · Prapatra Management System</div>
+    </div>
+    <div class="ah-right">
+      <div class="ah-user">
+        <div class="ah-user-name" id="ah-name">—</div>
+        <div class="ah-user-role" id="ah-role">—</div>
+      </div>
+      <button class="btn-out" onclick="doLogout()">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Mobile sidebar overlay -->
+  <div id="mob-ov" onclick="closeSb()"></div>
+
+  <div class="ab">
+    <!-- Sidebar -->
+    <aside class="sb" id="sb">
+      <div class="sb-role" id="sb-role-info">
+        <div class="sb-role-name" id="sb-rname">—</div>
+        <div class="sb-role-title" id="sb-rtitle">—</div>
+      </div>
+      <div class="sb-section">Menu</div>
+      <div class="ni on" id="nav-home" onclick="goScreen('home',this)">
+        <span class="ni-ico">🏠</span> Dashboard
+      </div>
+      <!-- Field Officer -->
+      <div class="ni" id="nav-myforms" onclick="goScreen('myforms',this)" style="display:none">
+        <span class="ni-ico">📋</span> My Reports
+      </div>
+      <div class="ni" id="nav-newform" onclick="goScreen('newform',this)" style="display:none">
+        <span class="ni-ico">✏️</span> Fill Prapatra
+      </div>
+      <!-- DFO -->
+      <div class="ni" id="nav-approvals" onclick="goScreen('approvals',this)" style="display:none">
+        <span class="ni-ico">✅</span> Pending Approvals
+      </div>
+      <div class="ni" id="nav-dfo-all" onclick="goScreen('dfo-all',this)" style="display:none">
+        <span class="ni-ico">📂</span> All Division Reports
+      </div>
+      <!-- HQ -->
+      <div class="ni" id="nav-allreports" onclick="goScreen('allreports',this)" style="display:none">
+        <span class="ni-ico">📂</span> All Reports
+      </div>
+      <div class="ni" id="nav-monitor" onclick="goScreen('monitor',this)" style="display:none">
+        <span class="ni-ico">📊</span> M&amp;E Monitor
+      </div>
+    </aside>
+
+    <!-- Main content area — overflow:hidden is the ghost-text fix -->
+    <main class="mc" id="mc">
+
+      <!-- ── SCREEN: HOME DASHBOARD (role-aware) ── -->
+      <div class="sc on" id="sc-home">
+        <div class="ph">
+          <div class="ph-title" id="home-title">Dashboard</div>
+          <div class="ph-sub" id="home-sub">Loading…</div>
+        </div>
+        <div class="g4" id="home-kpis"></div>
+
+        <div class="g2" id="home-charts-row">
+          <div class="card">
+            <div class="ch"><div class="ch-t">📊 Report Status Breakdown</div></div>
+            <div class="chart-wrap"><canvas id="chart-home" width="210" height="210" style="max-width:210px;max-height:210px"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="ch"><div class="ch-t">🗺️ Uttarakhand Forest Divisions</div></div>
+            <div style="padding:8px 8px 6px" id="home-map"></div>
+          </div>
+        </div>
+
+        <!-- Workflow trail (field officer only) -->
+        <div id="home-trail" style="display:none">
+          <div class="card">
+            <div class="ch"><div class="ch-t">📌 Workflow Status — Your Prapatra-1 (Plantation Works)</div></div>
+            <div class="cb">
+              <div class="wflow">
+                <div class="wf-step done" id="wt0"><span class="wf-ico">✍️</span>Draft Created</div>
+                <div class="wf-arr">›</div>
+                <div class="wf-step" id="wt1"><span class="wf-ico">📤</span>Submitted</div>
+                <div class="wf-arr">›</div>
+                <div class="wf-step" id="wt2"><span class="wf-ico">🔍</span>DFO Review</div>
+                <div class="wf-arr">›</div>
+                <div class="wf-step" id="wt3"><span class="wf-ico">✅</span>Approved</div>
+              </div>
+              <div id="wt-action" style="text-align:center;margin-top:12px"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary table -->
+        <div class="card" id="home-recent">
+          <div class="ch">
+            <div class="ch-t" id="home-rec-title">Recent Activity</div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="dt">
+              <thead><tr><th>Ref. No.</th><th>Type</th><th>Division / Range</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody id="home-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SCREEN: MY REPORTS (field officer) ── -->
+      <div class="sc" id="sc-myforms">
+        <div class="ph"><div class="ph-title">My Reports</div><div class="ph-sub">Raipur Range · Dehradun Division · Q2 2026–27</div></div>
+        <div class="rbanner rb-field">🌿 Logged in as <b>Range Officer, Raipur Range</b> — You can fill, save and submit Prapatras for your range. Submitted reports go to your DFO for approval.</div>
+        <div class="card">
+          <div class="ch">
+            <div class="ch-t">My Prapatras — Q2 2026–27</div>
+            <button class="btn bp btn-sm" onclick="goScreen('newform',document.getElementById('nav-newform'))">+ Fill New Prapatra</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="dt"><thead><tr><th>Ref. No.</th><th>Type</th><th>Scheme</th><th>Quarter</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="myforms-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SCREEN: FILL PRAPATRA (field officer) ── -->
+      <div class="sc" id="sc-newform">
+        <div class="ph"><div class="ph-title">Prapatra-1 : Plantation Works</div><div class="ph-sub">Dehradun Division · Raipur Range · Q2 2026–27</div></div>
+        <div class="rbanner rb-field">🌿 Fill in all sections. Click <b>Submit for DFO Approval</b> when complete. You can preview before submitting.</div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-t">Section A — Scheme Identification</div></div>
+          <div class="cb">
+            <div class="fg2c">
+              <div class="fg"><label class="lbl">Scheme / Area Name</label><input id="f-scheme" value="Afforestation Scheme — Mussoorie Road"></div>
+              <div class="fg"><label class="lbl">Scheme Code</label><input id="f-code" value="AS-DDN-2024-07"></div>
+              <div class="fg"><label class="lbl">Range</label>
+                <select id="f-range"><option selected>Raipur Range</option><option>Mussoorie Range</option><option>Sahasradhara Range</option><option>Doiwala Range</option></select>
+              </div>
+              <div class="fg"><label class="lbl">GPS Location</label><input id="f-gps" value="30.3165°N, 78.0322°E"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-t">Section B — Physical Progress</div></div>
+          <div class="cb">
+            <div class="fg2c">
+              <div class="fg"><label class="lbl">Target Area (ha)</label><input id="f-target" type="number" value="45.50"></div>
+              <div class="fg"><label class="lbl">Achieved Area (ha)</label><input id="f-ach" type="number" value="42.75"></div>
+              <div class="fg"><label class="lbl">Seedlings Planted (Nos.)</label><input id="f-seed" type="number" value="42750"></div>
+              <div class="fg"><label class="lbl">Survival Rate (%)</label><input id="f-surv" type="number" value="82"></div>
+              <div class="fg"><label class="lbl">Seedling Source</label>
+                <select id="f-src"><option selected>Own Nursery</option><option>Purchased</option><option>Mixed</option></select>
+              </div>
+              <div class="fg"><label class="lbl">Primary Species</label><input id="f-spp" value="Teak, Sal, Chir Pine, Banj Oak"></div>
+            </div>
+            <div style="margin-top:4px">
+              <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px"><span style="color:var(--fg3)">Achievement Progress</span><span style="font-weight:700">93.9%</span></div>
+              <div class="pbar"><div class="pbar-fill" style="width:93.9%;background:var(--ok)"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-t">Section C — Water Structures</div></div>
+          <div class="cb">
+            <div class="fg2c">
+              <div class="fg"><label class="lbl">Check Dams (Nos.)</label><input type="number" value="8"></div>
+              <div class="fg"><label class="lbl">Contour Trenches (m)</label><input type="number" value="2400"></div>
+              <div class="fg"><label class="lbl">Water Harvesting Pits</label><input type="number" value="120"></div>
+              <div class="fg"><label class="lbl">Staggered Trenches (m)</label><input type="number" value="1800"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-t">Section D — Financial Progress</div></div>
+          <div class="cb">
+            <div class="fg2c">
+              <div class="fg"><label class="lbl">Budget Allocation (₹)</label><input id="f-budget" value="28,00,000"></div>
+              <div class="fg"><label class="lbl">Expenditure to Date (₹)</label><input id="f-spent" value="25,34,000"></div>
+            </div>
+            <div style="margin-top:4px">
+              <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px"><span style="color:var(--fg3)">Budget Utilisation</span><span style="font-weight:700">90.5%</span></div>
+              <div class="pbar"><div class="pbar-fill" style="width:90.5%;background:var(--p)"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-t">Section E — Field Remarks &amp; Verification</div></div>
+          <div class="cb">
+            <div class="fg">
+              <label class="lbl">Field Observations / Remarks</label>
+              <textarea id="f-remarks">Plantation carried out in two phases. Survival rate slightly lower in upper ridge area due to dry spell in August. Recommended for supplementary planting in next quarter for 3.5 ha gap areas. Check dams functional and water sources adequate.</textarea>
+            </div>
+            <div class="fg2c">
+              <div class="fg"><label class="lbl">Verified By</label><input value="Sh. R.K. Pandey, Range Officer"></div>
+              <div class="fg"><label class="lbl">Date of Verification</label><input type="date" value="2026-10-22"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dflex" style="margin-bottom:24px">
+          <button class="btn bp" onclick="submitForm()">📤 Submit for DFO Approval</button>
+          <button class="btn ba" onclick="openModal('DDN/P1/Q2-001')">👁 Preview Report</button>
+          <button class="btn bo" onclick="goScreen('myforms',document.getElementById('nav-myforms'))">← Back to My Reports</button>
+        </div>
+      </div>
+
+      <!-- ── SCREEN: PENDING APPROVALS (DFO) ── -->
+      <div class="sc" id="sc-approvals">
+        <div class="ph"><div class="ph-title">Pending Approvals</div><div class="ph-sub">Dehradun Division · Reports awaiting your decision</div></div>
+        <div class="rbanner rb-dfo">✅ Logged in as <b>DFO, Dehradun Division</b> — You can <b>Approve</b> or <b>Return</b> submitted Prapatra reports. Approved reports are locked for records.</div>
+        <div class="card">
+          <div class="ch"><div class="ch-t" id="app-count">Pending Approvals</div></div>
+          <div style="overflow-x:auto">
+            <table class="dt"><thead><tr><th>Ref. No.</th><th>Type</th><th>Range</th><th>Officer</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="approvals-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SCREEN: ALL DIVISION REPORTS (DFO) ── -->
+      <div class="sc" id="sc-dfo-all">
+        <div class="ph"><div class="ph-title">All Division Reports</div><div class="ph-sub">Dehradun Division · Q2 2026–27 · All Ranges</div></div>
+        <div class="rbanner rb-dfo">✅ <b>DFO View</b> — All submitted Prapatras from your division, across all ranges. Use Pending Approvals to take action on submissions.</div>
+        <div class="g4" id="dfo-kpis"></div>
+        <div class="card">
+          <div class="ch"><div class="ch-t">All Reports — Dehradun Division</div></div>
+          <div style="overflow-x:auto">
+            <table class="dt"><thead><tr><th>Ref. No.</th><th>Type</th><th>Range</th><th>Officer</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="dfo-all-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SCREEN: ALL REPORTS (HQ) ── -->
+      <div class="sc" id="sc-allreports">
+        <div class="ph"><div class="ph-title">All Reports</div><div class="ph-sub">All Prapatras submitted this quarter — statewide</div></div>
+        <div class="rbanner rb-hq">📋 Logged in as <b>HQ M&amp;E Cell</b> — You can view all reports and add observations. Approval authority rests with the DFO.</div>
+        <div class="card">
+          <div class="ch"><div class="ch-t">Q2 2026–27 — All Submissions</div></div>
+          <div style="overflow-x:auto">
+            <table class="dt"><thead><tr><th>Ref. No.</th><th>Type</th><th>Division</th><th>Officer</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="allreports-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SCREEN: M&E MONITOR (HQ) ── -->
+      <div class="sc" id="sc-monitor">
+        <div class="ph"><div class="ph-title">M&amp;E Monitor</div><div class="ph-sub">Quarter Q2 · 2026–27 · All 16 Divisions · 3 Circles</div></div>
+        <div class="rbanner rb-hq">📋 <b>HQ M&amp;E Cell</b> — State-level monitoring overview. Compliance, submission trends and circle-wise performance.</div>
+        <div class="g4" id="monitor-kpis"></div>
+        <div class="g2">
+          <div class="card">
+            <div class="ch"><div class="ch-t">Circle-wise Compliance</div></div>
+            <div class="cb" id="circle-bars"></div>
+          </div>
+          <div class="card">
+            <div class="ch"><div class="ch-t">Prapatra-type Coverage</div></div>
+            <div class="cb" id="prap-bars"></div>
+          </div>
+        </div>
+        <div class="g2">
+          <div class="card">
+            <div class="ch"><div class="ch-t">📊 Status Distribution</div></div>
+            <div class="chart-wrap"><canvas id="chart-mon-status" width="210" height="210" style="max-width:210px;max-height:210px"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="ch"><div class="ch-t">📊 Circle-wise Compliance %</div></div>
+            <div class="chart-wrap"><canvas id="chart-mon-circle" width="210" height="210" style="max-width:210px;max-height:210px"></canvas></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-t">Recent Submissions — All Divisions</div></div>
+          <div style="overflow-x:auto">
+            <table class="dt"><thead><tr><th>Ref. No.</th><th>Type</th><th>Division</th><th>Range</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="monitor-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+    </main><!-- /mc -->
+  </div><!-- /ab -->
+</div><!-- /#app -->
+
+<!-- ════════════════════════════════
+     PRAPATRA DETAIL MODAL
+     ════════════════════════════════ -->
+<div id="modal">
+  <div class="mp">
+    <div class="mp-head">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="font-size:36px">🌲</div>
+        <div style="flex:1">
+          <div class="mp-h1" id="m-title">Prapatra Report</div>
+          <div class="mp-h2">उत्तराखण्ड वन विभाग · Monitoring &amp; Evaluation System</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:9.5px;opacity:.7">Submission Ref.</div>
+          <div style="font-size:15px;font-weight:800" id="m-ref">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mp-meta">
+      <div class="mp-mc"><div class="mp-ml">Circle</div><div class="mp-mv">Garhwal Circle</div></div>
+      <div class="mp-mc"><div class="mp-ml">Division</div><div class="mp-mv" id="m-div">—</div></div>
+      <div class="mp-mc"><div class="mp-ml">Range</div><div class="mp-mv" id="m-range">—</div></div>
+      <div class="mp-mc"><div class="mp-ml">Quarter</div><div class="mp-mv">Q2 · Jul–Sep 2026–27</div></div>
+      <div class="mp-mc"><div class="mp-ml">Submitted By</div><div class="mp-mv" id="m-officer">—</div></div>
+      <div class="mp-mc"><div class="mp-ml">Status</div><div class="mp-mv" id="m-status">—</div></div>
+    </div>
+
+    <div class="mp-sec">
+      <div class="mp-st">Section A — Scheme Identification</div>
+      <div class="mp-row">
+        <div class="mp-f"><div class="mp-fl">Scheme Name</div><div class="mp-fv">Afforestation Scheme — Mussoorie Road</div></div>
+        <div class="mp-f"><div class="mp-fl">GPS Location</div><div class="mp-fv">30.3165°N, 78.0322°E</div></div>
+      </div>
+    </div>
+
+    <div class="mp-sec">
+      <div class="mp-st">Section B — Physical Progress</div>
+      <div class="mp-row mp-row3" style="margin-bottom:10px">
+        <div class="mp-f"><div class="mp-fl">Target (ha)</div><div class="mp-fv">45.50</div></div>
+        <div class="mp-f"><div class="mp-fl">Achieved (ha)</div><div class="mp-fv">42.75</div></div>
+        <div class="mp-f"><div class="mp-fl">Achievement</div><div class="mp-fv" style="color:var(--ok)">93.9%</div></div>
+        <div class="mp-f"><div class="mp-fl">Seedlings Planted</div><div class="mp-fv">42,750 Nos.</div></div>
+        <div class="mp-f"><div class="mp-fl">Survival Rate</div><div class="mp-fv">82%</div></div>
+        <div class="mp-f"><div class="mp-fl">Seedling Source</div><div class="mp-fv">Own Nursery</div></div>
+      </div>
+      <table class="mp-tbl">
+        <thead><tr><th>#</th><th>Species</th><th>Target (ha)</th><th>Achieved (ha)</th><th>Achievement %</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Teak (Tectona grandis)</td><td>15.00</td><td>14.50</td><td style="color:var(--ok);font-weight:700">96.7%</td></tr>
+          <tr><td>2</td><td>Sal (Shorea robusta)</td><td>12.00</td><td>11.50</td><td style="color:var(--ok);font-weight:700">95.8%</td></tr>
+          <tr><td>3</td><td>Chir Pine (Pinus roxburghii)</td><td>10.00</td><td>9.25</td><td style="font-weight:700">92.5%</td></tr>
+          <tr><td>4</td><td>Banj Oak (Quercus leucotrichophora)</td><td>8.50</td><td>7.50</td><td style="font-weight:700">88.2%</td></tr>
+          <tr style="font-weight:700;background:var(--sf2)"><td colspan="2">Total</td><td>45.50</td><td>42.75</td><td style="color:var(--ok)">93.9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mp-sec">
+      <div class="mp-st">Section C — Water Structures</div>
+      <div class="mp-row mp-row3">
+        <div class="mp-f"><div class="mp-fl">Check Dams</div><div class="mp-fv">8 Nos.</div></div>
+        <div class="mp-f"><div class="mp-fl">Contour Trenches</div><div class="mp-fv">2,400 m</div></div>
+        <div class="mp-f"><div class="mp-fl">Harvesting Pits</div><div class="mp-fv">120 Nos.</div></div>
+        <div class="mp-f"><div class="mp-fl">Staggered Trenches</div><div class="mp-fv">1,800 m</div></div>
+      </div>
+    </div>
+
+    <div class="mp-sec">
+      <div class="mp-st">Section D — Financial Progress</div>
+      <div class="mp-row mp-row3">
+        <div class="mp-f"><div class="mp-fl">Budget Allocation (₹)</div><div class="mp-fv">₹28,00,000</div></div>
+        <div class="mp-f"><div class="mp-fl">Expenditure (₹)</div><div class="mp-fv">₹25,34,000</div></div>
+        <div class="mp-f"><div class="mp-fl">Budget Utilisation</div><div class="mp-fv" style="color:var(--ok)">90.5%</div></div>
+      </div>
+    </div>
+
+    <div class="mp-sec" style="border-bottom:none">
+      <div class="mp-st">Section E — Observations</div>
+      <div style="padding:8px 8px 4px;font-size:13px;line-height:1.7;color:var(--fg)">Plantation carried out in two phases. Survival rate slightly lower in upper ridge area due to dry spell in August. Recommended for supplementary planting in next quarter for 3.5 ha gap areas. Check dams functional and water sources adequate.</div>
+      <div class="mp-row" style="margin-top:6px">
+        <div class="mp-f"><div class="mp-fl">Verified By</div><div class="mp-fv">Sh. R.K. Pandey, Range Officer</div></div>
+        <div class="mp-f"><div class="mp-fl">Date of Verification</div><div class="mp-fv">22 October 2026</div></div>
+      </div>
+    </div>
+
+    <!-- Comments section -->
+    <div class="mp-cmts" id="m-cmt-sec" style="display:none">
+      <div class="mp-st">Comments / Observations</div>
+      <div id="m-cmt-list" style="margin-top:8px"></div>
+      <div id="m-add-cmt" style="display:none;margin-top:10px">
+        <textarea id="m-cmt-inp" placeholder="Enter your observation or recommendation…" style="margin-bottom:8px"></textarea>
+        <button class="btn ba btn-sm" onclick="addComment()">+ Add Observation</button>
+      </div>
+    </div>
+
+    <!-- Signatures -->
+    <div class="mp-sigs">
+      <div class="mp-sig"><div class="mp-sig-line"></div><div class="mp-sig-name">Sh. R.K. Pandey</div><div class="mp-sig-role">Range Officer, Raipur Range<br>Dehradun Division</div></div>
+      <div class="mp-sig"><div class="mp-sig-line"></div><div class="mp-sig-name">Sh. V.P. Singh, IFS</div><div class="mp-sig-role">DFO, Dehradun Division<br>Garhwal Circle</div></div>
+      <div class="mp-sig"><div class="mp-sig-line"></div><div class="mp-sig-name">M&amp;E Cell, Forest HQ</div><div class="mp-sig-role">Uttarakhand Forest Dept.<br>Dehradun</div></div>
+    </div>
+
+    <div class="mp-acts" id="m-acts">
+      <button class="btn bo" onclick="closeModal()">✕ Close</button>
+      <span style="margin-left:auto;font-size:10px;color:var(--fg3)">Devbhoomi Uttarakhand · वन विभाग</span>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+// ════════ STATE ════════
+let curRole = null;
+let homeChart = null, monChart1 = null, monChart2 = null;
+
+const MAP_SVG = `<svg viewBox="0 0 480 308" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;border-radius:8px;background:linear-gradient(175deg,#071B08 0%,#0A2810 55%,#081508 100%)">
+  <defs><linearGradient id="g-alp" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8e8f8"/><stop offset="100%" stop-color="#7ab8d0"/></linearGradient></defs>
+  <polygon points="45,242 98,265 160,276 222,270 282,260 338,246 388,220 428,168 402,126 368,100 330,80 295,70 262,76 228,66 198,61 168,66 142,50 118,46 92,50 72,56 62,86 52,118 43,158 40,196 45,242" fill="#1A5C35" fill-opacity="0.52" stroke="#2DAA62" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="45,242 40,196 43,226 52,250 78,265 130,276 185,280 238,276 285,266 335,250 385,226 428,190 428,168 388,220 338,246 282,260 222,270 160,276 98,265 45,242" fill="#2B7A4B" fill-opacity="0.48"/>
+  <polygon points="72,56 92,50 118,46 142,50 168,66 198,61 228,66 262,76 295,70 330,80 368,100 402,126 415,106 388,80 355,63 318,50 282,46 248,53 215,46 182,50 155,40 128,36 100,40 78,46 62,70" fill="url(#g-alp)" opacity="0.42"/>
+  <polygon points="148,46 158,28 168,46" fill="white" opacity="0.92"/><polygon points="200,58 214,36 228,58" fill="white" opacity="0.92"/><polygon points="262,70 278,46 294,70" fill="white" opacity="0.9"/><polygon points="335,76 350,53 365,76" fill="white" opacity="0.88"/>
+  <polyline points="72,56 100,50 130,43 155,46 178,60 200,63 225,70 260,78 295,73 328,83 365,103 402,126" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="82" y="148" fill="rgba(255,255,255,0.16)" font-size="13" font-family="Inter,sans-serif" font-weight="800" letter-spacing="3">GARHWAL</text>
+  <text x="282" y="148" fill="rgba(255,255,255,0.16)" font-size="13" font-family="Inter,sans-serif" font-weight="800" letter-spacing="3">KUMAON</text>
+  <circle cx="88" cy="196" r="8" fill="#C8860A" stroke="white" stroke-width="1.5"/><circle cx="88" cy="196" r="3" fill="white"/>
+  <text x="100" y="192" fill="#FDF3DC" font-size="10" font-family="Inter,sans-serif" font-weight="800">Dehradun</text><text x="100" y="203" fill="rgba(255,220,100,0.7)" font-size="7.5" font-family="Inter,sans-serif">HQ · Garhwal Circle</text>
+  <circle cx="65" cy="250" r="6" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="75" y="255" fill="#B8EED0" font-size="8.5" font-family="Inter,sans-serif" font-weight="600">Haridwar</text>
+  <circle cx="140" cy="90" r="5.5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="150" y="95" fill="#B8EED0" font-size="8.5" font-family="Inter,sans-serif" font-weight="600">Uttarkashi</text>
+  <circle cx="160" cy="153" r="5.5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="170" y="158" fill="#B8EED0" font-size="8.5" font-family="Inter,sans-serif" font-weight="600">Tehri</text>
+  <circle cx="192" cy="186" r="5.5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="202" y="191" fill="#B8EED0" font-size="8.5" font-family="Inter,sans-serif" font-weight="600">Pauri</text>
+  <circle cx="255" cy="106" r="5.5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="263" y="111" fill="#B8EED0" font-size="8.5" font-family="Inter,sans-serif" font-weight="600">Chamoli</text>
+  <circle cx="212" cy="146" r="5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="220" y="151" fill="#B8EED0" font-size="8" font-family="Inter,sans-serif">Rudraprayag</text>
+  <circle cx="295" cy="206" r="8" fill="#C8860A" stroke="white" stroke-width="1.5"/><circle cx="295" cy="206" r="3" fill="white"/>
+  <text x="307" y="202" fill="#FDF3DC" font-size="10" font-family="Inter,sans-serif" font-weight="800">Nainital</text><text x="307" y="213" fill="rgba(255,220,100,0.7)" font-size="7.5" font-family="Inter,sans-serif">HQ · Kumaon Circle</text>
+  <circle cx="328" cy="168" r="5.5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="336" y="173" fill="#B8EED0" font-size="8.5" font-family="Inter,sans-serif" font-weight="600">Almora</text>
+  <circle cx="348" cy="140" r="5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="330" y="136" fill="#B8EED0" font-size="8" font-family="Inter,sans-serif">Bageshwar</text>
+  <circle cx="398" cy="156" r="5.5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="380" y="148" fill="#B8EED0" font-size="8" font-family="Inter,sans-serif">Pithoragarh</text>
+  <circle cx="298" cy="256" r="5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="306" y="261" fill="#B8EED0" font-size="7.5" font-family="Inter,sans-serif">USN</text>
+  <circle cx="375" cy="206" r="5" fill="#38BF72" stroke="white" stroke-width="1.5"/><text x="358" y="218" fill="#B8EED0" font-size="7.5" font-family="Inter,sans-serif">Champawat</text>
+  <text x="355" y="30" fill="rgba(255,255,255,0.32)" font-size="9" font-family="Inter,sans-serif" font-style="italic">← Himalaya — Nepal →</text>
+  <text x="50" y="292" fill="rgba(255,255,255,0.22)" font-size="8" font-family="Inter,sans-serif" font-style="italic">← Uttar Pradesh (Plains)</text>
+  <rect x="2" y="2" width="228" height="30" fill="rgba(0,0,0,0.52)" rx="4"/>
+  <text x="10" y="13" fill="#C8860A" font-size="8" font-family="Inter,sans-serif" font-weight="800" letter-spacing="1">UTTARAKHAND FOREST DIVISIONS</text>
+  <text x="10" y="25" fill="rgba(255,255,255,0.52)" font-size="7.5" font-family="Inter,sans-serif">3 Circles · 16 Divisions · Devbhoomi Uttarakhand</text>
+  <rect x="2" y="278" width="476" height="28" fill="rgba(0,0,0,0.48)" rx="4"/>
+  <circle cx="18" cy="292" r="5.5" fill="#C8860A" stroke="white" stroke-width="1"/><circle cx="18" cy="292" r="2" fill="white"/>
+  <text x="28" y="296" fill="#ccc" font-size="8" font-family="Inter,sans-serif">Circle HQ</text>
+  <circle cx="95" cy="292" r="4.5" fill="#38BF72" stroke="white" stroke-width="1"/>
+  <text x="105" y="296" fill="#ccc" font-size="8" font-family="Inter,sans-serif">Forest Division HQ</text>
+  <polygon points="215,288 220,280 225,288" fill="white" opacity="0.9"/>
+  <text x="230" y="296" fill="#ccc" font-size="8" font-family="Inter,sans-serif">Alpine / Snow Zone</text>
+  <rect x="360" y="284" width="56" height="14" fill="#1A5C35" opacity="0.75" rx="2"/>
+  <text x="366" y="295" fill="#B8EED0" font-size="8" font-family="Inter,sans-serif">Forest Belt</text>
+</svg>`;
+
+const ROLES = {
+  field: { name:'Sh. R.K. Pandey', title:'Range Officer, Raipur Range', org:'Dehradun Division' },
+  dfo:   { name:'Sh. V.P. Singh, IFS', title:'DFO, Dehradun Division', org:'Garhwal Circle' },
+  hq:    { name:'HQ M&E Cell', title:'M&E Monitoring Unit', org:'Forest HQ, Dehradun' },
+  guest: { name:'Guest Observer', title:'View-only access', org:'Uttarakhand Forest Dept.' }
+};
+
+// Shared demo data — status changes during demo
+let REPORTS = [
+  { id:'DDN/P1/Q2-001', type:'P1', name:'Plantation Works', div:'Dehradun', range:'Raipur Range', officer:'R.K. Pandey', date:'2026-10-22', status:'draft',     comments:[] },
+  { id:'DDN/P2/Q2-001', type:'P2', name:'Nursery Dev.',     div:'Dehradun', range:'Raipur Range', officer:'R.K. Pandey', date:'2026-10-10', status:'approved',  comments:[] },
+  { id:'DDN/P8/Q2-001', type:'P8', name:'Fire Protection',  div:'Dehradun', range:'Mussoorie Range', officer:'S.C. Bhatt', date:'2026-10-18', status:'submitted', comments:[] },
+  { id:'HLD/P3/Q2-001', type:'P3', name:'SMC Works',        div:'Haridwar', range:'Haridwar Range', officer:'M.S. Rawat', date:'2026-10-15', status:'submitted', comments:[] },
+  { id:'LNS/P1/Q2-001', type:'P1', name:'Plantation Works', div:'Lansdowne', range:'Lansdowne Range', officer:'P.K. Negi', date:'2026-10-08', status:'approved',  comments:[] },
+  { id:'HLD/P4/Q2-001', type:'P4', name:'Engineering Works', div:'Haridwar', range:'Jwalapur Range', officer:'A.K. Sharma', date:'2026-10-19', status:'draft', comments:[] },
+];
+
+// ════════ HELPERS ════════
+function statusTag(s) {
+  const m = { draft:['Draft','tg-draft'], submitted:['Submitted','tg-sub'], approved:['Approved','tg-app'], returned:['Returned','tg-ret'] };
+  const [l,c] = m[s] || ['—','tg-draft'];
+  return `<span class="tag ${c}">${l}</span>`;
+}
+
+function kpiCard(icon, label, val, note, cls='') {
+  return `<div class="kc ${cls}" data-icon="${icon}"><div class="kc-l">${label}</div><div class="kc-v">${val}</div><div class="kc-n">${note}</div></div>`;
+}
+
+function bar(label, pct, color) {
+  return `<div style="margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+      <span><b>${label}</b></span><span style="font-weight:700;color:${color}">${pct}%</span>
+    </div>
+    <div class="pbar"><div class="pbar-fill" style="width:${pct}%;background:${color}"></div></div>
+  </div>`;
+}
+
+function makeRow(r, actions) {
+  return `<tr>
+    <td style="font-size:12px;font-weight:700;white-space:nowrap">${r.id}</td>
+    <td><b>${r.type}</b> ${r.name}</td>
+    <td>${r.div} · ${r.range}</td>
+    <td style="white-space:nowrap">${r.date}</td>
+    <td>${statusTag(r.status)}</td>
+    <td style="white-space:nowrap">${actions(r)}</td>
+  </tr>`;
+}
+
+// ════════ LOGIN ════════
+const CREDS = {
+  'field.officer': { pass:'Forest@2026', role:'field' },
+  'dfo.dehradun':  { pass:'DFO@Secure1', role:'dfo'   },
+  'hq.reviewer':   { pass:'HQMonitor#1', role:'hq'    },
+};
+
+function togglePass() {
+  const inp = document.getElementById('lf-pass');
+  const btn = document.getElementById('pass-eye-btn');
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+  else { inp.type = 'password'; btn.textContent = '👁'; }
+}
+
+function _enterApp(role) {
+  curRole = role;
+  const r = ROLES[curRole];
+  document.getElementById('ah-name').textContent = r.name;
+  document.getElementById('ah-role').textContent = r.title;
+  document.getElementById('sb-rname').textContent = r.name;
+  document.getElementById('sb-rtitle').textContent = r.title + ' · ' + r.org;
+  document.getElementById('ls').classList.add('gone');
+  document.getElementById('app').classList.add('on');
+  setupNav();
+  buildHome();
+  toast('🌲 Welcome, ' + r.name + '!');
+}
+
+function doLogin() {
+  const user = (document.getElementById('lf-user').value || '').trim().toLowerCase();
+  const pass = (document.getElementById('lf-pass').value || '');
+  const errEl = document.getElementById('lf-err');
+  const uInp = document.getElementById('lf-user');
+  const pInp = document.getElementById('lf-pass');
+  const cred = CREDS[user];
+  if (!cred || cred.pass !== pass) {
+    errEl.classList.add('on');
+    uInp.classList.add('err');
+    pInp.classList.add('err');
+    pInp.value = '';
+    pInp.focus();
+    return;
+  }
+  errEl.classList.remove('on');
+  uInp.classList.remove('err');
+  pInp.classList.remove('err');
+  _enterApp(cred.role);
+}
+
+function doGuestLogin() {
+  _enterApp('guest');
+}
+
+function doLogout() {
+  document.getElementById('app').classList.remove('on');
+  document.getElementById('ls').classList.remove('gone');
+  curRole = null;
+  document.getElementById('lf-user').value = '';
+  document.getElementById('lf-pass').value = '';
+  document.getElementById('lf-err').classList.remove('on');
+  document.getElementById('lf-user').classList.remove('err');
+  document.getElementById('lf-pass').classList.remove('err');
+}
+
+// ════════ NAVIGATION ════════
+const NAV_MAP = {
+  field: ['nav-myforms','nav-newform'],
+  dfo:   ['nav-approvals','nav-dfo-all'],
+  hq:    ['nav-allreports','nav-monitor'],
+  guest: []
+};
+
+function setupNav() {
+  const all = ['nav-myforms','nav-newform','nav-approvals','nav-dfo-all','nav-allreports','nav-monitor'];
+  const show = NAV_MAP[curRole] || [];
+  all.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = show.includes(id) ? 'flex' : 'none';
+  });
+}
+
+function goScreen(id, navEl) {
+  document.querySelectorAll('.sc').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('on'));
+  const sc = document.getElementById('sc-' + id);
+  if (sc) sc.classList.add('on');
+  if (navEl) navEl.classList.add('on');
+  closeSb();
+  // rebuild dynamic content
+  const builders = {
+    home: buildHome, myforms: buildMyForms, approvals: buildApprovals,
+    'dfo-all': buildDfoAll, allreports: buildAllReports, monitor: buildMonitor
+  };
+  if (builders[id]) builders[id]();
+}
+
+// Mobile sidebar
+function toggleSb() { document.getElementById('sb').classList.toggle('open'); document.getElementById('mob-ov').classList.toggle('on'); }
+function closeSb() { document.getElementById('sb').classList.remove('open'); document.getElementById('mob-ov').classList.remove('on'); }
+
+// ════════ HOME DASHBOARD ════════
+function buildHome() {
+  const nav = document.getElementById('nav-home');
+  document.querySelectorAll('.sc').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('on'));
+  document.getElementById('sc-home').classList.add('on');
+  if (nav) nav.classList.add('on');
+
+  const all = REPORTS, sub = all.filter(r=>r.status==='submitted'), app = all.filter(r=>r.status==='approved');
+  const trail = document.getElementById('home-trail');
+
+  if (curRole === 'field') {
+    document.getElementById('home-title').textContent = 'My Dashboard';
+    document.getElementById('home-sub').textContent = 'Raipur Range · Dehradun Division · Q2 2026–27';
+    const mine = all.filter(r => r.officer === 'R.K. Pandey');
+    document.getElementById('home-kpis').innerHTML =
+      kpiCard('📋','My Reports',mine.length,'This quarter') +
+      kpiCard('📝','Drafts',mine.filter(r=>r.status==='draft').length,'Pending submission') +
+      kpiCard('⏳','Awaiting Approval',mine.filter(r=>r.status==='submitted').length,'With DFO') +
+      kpiCard('✅','Approved',mine.filter(r=>r.status==='approved').length,'Completed','kc-green');
+    trail.style.display = 'block';
+    updateTrail();
+    document.getElementById('home-rec-title').textContent = 'My Prapatras';
+    renderTableTo('home-tbody', mine, r =>
+      `<button class="btn bo btn-sm" onclick="openModal('${r.id}')">View</button>${r.status==='draft'?' <button class="btn bp btn-sm" onclick="goScreen(\'newform\',document.getElementById(\'nav-newform\'))">Fill</button>':''}`
+    );
+
+  } else if (curRole === 'dfo') {
+    document.getElementById('home-title').textContent = 'DFO Dashboard';
+    document.getElementById('home-sub').textContent = 'Dehradun Division · All Ranges · Q2 2026–27';
+    document.getElementById('home-kpis').innerHTML =
+      kpiCard('⏳','Pending Approval',sub.length,'Action required','kc-amber') +
+      kpiCard('✅','Approved',app.length,'This quarter','kc-green') +
+      kpiCard('📋','Total Reports',all.length,'All types') +
+      kpiCard('📊','Division Compliance','74%','Q2 2026–27');
+    trail.style.display = 'none';
+    document.getElementById('home-rec-title').textContent = 'Reports Awaiting Your Approval';
+    renderTableTo('home-tbody', sub, r =>
+      `<button class="btn bo btn-sm" onclick="openModal('${r.id}')">View</button> <button class="btn bg btn-sm" onclick="approveReport('${r.id}')">✅ Approve</button>`
+    );
+
+  } else if (curRole === 'hq') {
+    document.getElementById('home-title').textContent = 'M&E Command Centre';
+    document.getElementById('home-sub').textContent = 'All 16 Divisions · 3 Circles · Q2 2026–27';
+    document.getElementById('home-kpis').innerHTML =
+      kpiCard('📤','Total Submitted',sub.length+app.length,'Q2 2026–27') +
+      kpiCard('✅','Approved',app.length,'Fully processed','kc-green') +
+      kpiCard('⏳','Pending DFO',sub.length,'Awaiting approval') +
+      kpiCard('📊','State Compliance','74%','Statewide avg.');
+    trail.style.display = 'none';
+    document.getElementById('home-rec-title').textContent = 'Recent Submissions — All Divisions';
+    renderTableTo('home-tbody', all, r => `<button class="btn bo btn-sm" onclick="openModal('${r.id}')">View &amp; Comment</button>`);
+
+  } else { // guest
+    document.getElementById('home-title').textContent = 'Forest M&E — Overview';
+    document.getElementById('home-sub').textContent = 'Uttarakhand Forest Department · View-only access';
+    document.getElementById('home-kpis').innerHTML =
+      kpiCard('📋','Total Q2 Reports',all.length,'2026–27') +
+      kpiCard('✅','Approved',app.length,'Completed','kc-green') +
+      kpiCard('⏳','Under Review',sub.length,'In pipeline') +
+      kpiCard('🌲','Divisions Active','16','3 Circles');
+    trail.style.display = 'none';
+    document.getElementById('home-rec-title').textContent = 'Q2 2026–27 — All Submissions';
+    renderTableTo('home-tbody', all, r => `<button class="btn bo btn-sm" onclick="openModal('${r.id}')">View</button>`);
+  }
+
+  // ── Chart + Map ──
+  if (homeChart) { homeChart.destroy(); homeChart = null; }
+  const hc = document.getElementById('chart-home');
+  if (hc && typeof Chart !== 'undefined') {
+    const dr=REPORTS.filter(r=>r.status==='draft').length;
+    const sb=REPORTS.filter(r=>r.status==='submitted').length;
+    const ap=REPORTS.filter(r=>r.status==='approved').length;
+    const rt=REPORTS.filter(r=>r.status==='returned').length;
+    homeChart = new Chart(hc, {
+      type:'doughnut',
+      data:{
+        labels:['Draft','Submitted','Approved','Returned'],
+        datasets:[{data:[dr,sb,ap,rt],backgroundColor:['#6A8A6A','#1D5FA4','#15803D','#B91C1C'],borderWidth:3,borderColor:'transparent',hoverOffset:4}]
+      },
+      options:{responsive:false,plugins:{legend:{position:'bottom',labels:{font:{size:11,family:'Inter'},padding:10,boxWidth:12}}},cutout:'65%'}
+    });
+  }
+  const mapEl = document.getElementById('home-map');
+  if (mapEl) mapEl.innerHTML = MAP_SVG;
+}
+
+function renderTableTo(tbodyId, reports, actionsFn) {
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  tbody.innerHTML = reports.length === 0
+    ? `<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--fg3)">No records to display</td></tr>`
+    : reports.map(r => `<tr>
+        <td style="font-size:12px;font-weight:700;white-space:nowrap">${r.id}</td>
+        <td><b>${r.type}</b> — ${r.name}</td>
+        <td>${r.div} · ${r.range}</td>
+        <td style="white-space:nowrap;color:var(--fg3)">${r.date}</td>
+        <td>${statusTag(r.status)}</td>
+        <td style="white-space:nowrap">${actionsFn(r)}</td>
+      </tr>`).join('');
+}
+
+function updateTrail() {
+  const rpt = REPORTS.find(r => r.id === 'DDN/P1/Q2-001');
+  const st = rpt ? rpt.status : 'draft';
+  const idxMap = { draft:0, submitted:1, returned:1, approved:3 };
+  const cur = idxMap[st] ?? 0;
+  ['wt0','wt1','wt2','wt3'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('done','cur');
+    if (i < cur) el.classList.add('done');
+    else if (i === cur) el.classList.add('cur');
+  });
+  const actEl = document.getElementById('wt-action');
+  if (!actEl) return;
+  if (st === 'draft')
+    actEl.innerHTML = '<button class="btn bp" onclick="goScreen(\'newform\',document.getElementById(\'nav-newform\'))">📝 Fill &amp; Submit P1 Plantation Works →</button>';
+  else if (st === 'submitted')
+    actEl.innerHTML = '<span style="color:var(--au);font-weight:700;font-size:13px">⏳ Awaiting DFO approval — login as DFO to approve</span>';
+  else if (st === 'approved')
+    actEl.innerHTML = '<span style="color:var(--ok);font-weight:700;font-size:13px">✅ Approved by DFO, Dehradun Division!</span>';
+}
+
+// ════════ MY FORMS ════════
+function buildMyForms() {
+  const mine = REPORTS.filter(r => r.officer === 'R.K. Pandey');
+  document.getElementById('myforms-tbody').innerHTML = mine.map(r => `<tr>
+    <td style="font-size:12px;font-weight:700;white-space:nowrap">${r.id}</td>
+    <td><b>${r.type}</b> — ${r.name}</td>
+    <td>Afforestation / Q2 2026–27</td>
+    <td>Q2 2026–27</td>
+    <td>${statusTag(r.status)}</td>
+    <td style="white-space:nowrap">
+      <button class="btn bo btn-sm" onclick="openModal('${r.id}')">View</button>
+      ${r.status==='draft' ? ` <button class="btn bp btn-sm" onclick="goScreen('newform',document.getElementById('nav-newform'))">Fill &amp; Submit</button>` : ''}
+    </td>
+  </tr>`).join('');
+}
+
+// ════════ SUBMIT FORM ════════
+function submitForm() {
+  const rpt = REPORTS.find(r => r.id === 'DDN/P1/Q2-001');
+  if (rpt) { rpt.status = 'submitted'; rpt.date = '2026-10-23'; }
+  toast('📤 Prapatra-1 submitted to DFO for approval!');
+  goScreen('myforms', document.getElementById('nav-myforms'));
+  updateTrail();
+}
+
+// ════════ APPROVALS (DFO) ════════
+function buildApprovals() {
+  const pending = REPORTS.filter(r => r.status === 'submitted');
+  document.getElementById('app-count').textContent = `Pending Approvals (${pending.length})`;
+  document.getElementById('approvals-tbody').innerHTML = pending.length === 0
+    ? `<tr><td colspan="7" style="text-align:center;padding:28px;color:var(--fg3)">✅ All reports processed — no pending approvals</td></tr>`
+    : pending.map(r => `<tr>
+        <td style="font-size:12px;font-weight:700;white-space:nowrap">${r.id}</td>
+        <td><b>${r.type}</b> — ${r.name}</td>
+        <td>${r.range}</td>
+        <td>${r.officer}</td>
+        <td style="white-space:nowrap">${r.date}</td>
+        <td>${statusTag(r.status)}</td>
+        <td style="white-space:nowrap;display:flex;gap:6px;padding:11px 14px">
+          <button class="btn bo btn-sm" onclick="openModal('${r.id}')">View</button>
+          <button class="btn bg btn-sm" onclick="approveReport('${r.id}')">✅ Approve</button>
+          <button class="btn br btn-sm" onclick="returnReport('${r.id}')">↩ Return</button>
+        </td>
+      </tr>`).join('');
+}
+
+function approveReport(id) {
+  const r = REPORTS.find(x => x.id === id);
+  if (r) r.status = 'approved';
+  toast('✅ ' + id + ' — Approved and locked!');
+  buildApprovals();
+  updateTrail();
+  closeModal();
+}
+
+function returnReport(id) {
+  const r = REPORTS.find(x => x.id === id);
+  if (r) r.status = 'returned';
+  toast('↩ ' + id + ' — Returned for correction.');
+  buildApprovals();
+  closeModal();
+}
+
+// ════════ DFO ALL REPORTS ════════
+function buildDfoAll() {
+  const sub = REPORTS.filter(r=>r.status==='submitted').length,
+        app = REPORTS.filter(r=>r.status==='approved').length;
+  document.getElementById('dfo-kpis').innerHTML =
+    kpiCard('📋','Total Reports',REPORTS.length,'Dehradun Division') +
+    kpiCard('⏳','Pending',sub,'Awaiting your action','kc-amber') +
+    kpiCard('✅','Approved',app,'Processed','kc-green') +
+    kpiCard('📊','Compliance','74%','Division avg.');
+  document.getElementById('dfo-all-tbody').innerHTML = REPORTS.map(r => `<tr>
+    <td style="font-size:12px;font-weight:700;white-space:nowrap">${r.id}</td>
+    <td><b>${r.type}</b> — ${r.name}</td>
+    <td>${r.range}</td>
+    <td>${r.officer}</td>
+    <td style="white-space:nowrap">${r.date}</td>
+    <td>${statusTag(r.status)}</td>
+    <td style="white-space:nowrap">
+      <button class="btn bo btn-sm" onclick="openModal('${r.id}')">View</button>
+      ${r.status==='submitted'?` <button class="btn bg btn-sm" onclick="approveReport('${r.id}')">✅ Approve</button>`:''}
+    </td>
+  </tr>`).join('');
+}
+
+// ════════ ALL REPORTS (HQ) ════════
+function buildAllReports() {
+  document.getElementById('allreports-tbody').innerHTML = REPORTS.map(r => `<tr>
+    <td style="font-size:12px;font-weight:700;white-space:nowrap">${r.id}</td>
+    <td><b>${r.type}</b> — ${r.name}</td>
+    <td>${r.div}</td>
+    <td>${r.officer}</td>
+    <td style="white-space:nowrap">${r.date}</td>
+    <td>${statusTag(r.status)}</td>
+    <td><button class="btn bo btn-sm" onclick="openModal('${r.id}')">View &amp; Comment</button></td>
+  </tr>`).join('');
+}
+
+// ════════ M&E MONITOR (HQ) ════════
+function buildMonitor() {
+  const sub = REPORTS.filter(r=>r.status==='submitted').length,
+        app = REPORTS.filter(r=>r.status==='approved').length;
+  document.getElementById('monitor-kpis').innerHTML =
+    kpiCard('📤','Total Submitted',sub+app,'Q2 2026–27') +
+    kpiCard('✅','Approved',app,'Fully processed','kc-green') +
+    kpiCard('⏳','Pending DFO',sub,'In pipeline') +
+    kpiCard('📊','State Compliance','74%','Statewide');
+
+  document.getElementById('circle-bars').innerHTML =
+    bar('Garhwal Circle', 78, 'var(--ok)') +
+    bar('Kumaon Circle', 71, 'var(--au)') +
+    bar('Siwalik Circle', 69, 'var(--er)');
+
+  document.getElementById('prap-bars').innerHTML =
+    bar('P1 — Plantation Works', 85, 'var(--p)') +
+    bar('P2 — Nursery Dev.', 72, 'var(--pm)') +
+    bar('P3 — SMC Works', 68, 'var(--au)') +
+    bar('P8 — Fire Protection', 90, 'var(--ok)') +
+    bar('P9 — Wildlife', 55, 'var(--er)');
+
+  document.getElementById('monitor-tbody').innerHTML = REPORTS.map(r => `<tr>
+    <td style="font-size:12px;font-weight:700;white-space:nowrap">${r.id}</td>
+    <td><b>${r.type}</b> — ${r.name}</td>
+    <td>${r.div}</td>
+    <td>${r.range}</td>
+    <td>${statusTag(r.status)}</td>
+    <td><button class="btn bo btn-sm" onclick="openModal('${r.id}')">View</button></td>
+  </tr>`).join('');
+
+  // ── Monitor Charts ──
+  if (monChart1) { monChart1.destroy(); monChart1 = null; }
+  if (monChart2) { monChart2.destroy(); monChart2 = null; }
+  const mc1 = document.getElementById('chart-mon-status');
+  const mc2 = document.getElementById('chart-mon-circle');
+  if (mc1 && typeof Chart !== 'undefined') {
+    const dr=REPORTS.filter(r=>r.status==='draft').length;
+    const sb=REPORTS.filter(r=>r.status==='submitted').length;
+    const ap=REPORTS.filter(r=>r.status==='approved').length;
+    monChart1 = new Chart(mc1, {
+      type:'doughnut',
+      data:{labels:['Draft','Submitted','Approved'],datasets:[{data:[dr,sb,ap],backgroundColor:['#6A8A6A','#1D5FA4','#15803D'],borderWidth:3,borderColor:'transparent',hoverOffset:4}]},
+      options:{responsive:false,plugins:{legend:{position:'bottom',labels:{font:{size:10,family:'Inter'},padding:8,boxWidth:10}}},cutout:'60%'}
+    });
+  }
+  if (mc2 && typeof Chart !== 'undefined') {
+    monChart2 = new Chart(mc2, {
+      type:'pie',
+      data:{labels:['Garhwal Circle','Kumaon Circle','Siwalik Circle'],datasets:[{data:[78,71,69],backgroundColor:['#1A5C35','#256E42','#2B7A4B'],borderWidth:3,borderColor:'transparent'}]},
+      options:{responsive:false,plugins:{legend:{position:'bottom',labels:{font:{size:10,family:'Inter'},padding:8,boxWidth:10}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.raw+'%'}}}}}
+    });
+  }
+}
+
+// ════════ MODAL ════════
+let currentReportId = null;
+
+function openModal(id) {
+  const r = REPORTS.find(x => x.id === id);
+  if (!r) return;
+  currentReportId = id;
+
+  document.getElementById('m-title').textContent = 'Prapatra ' + r.type + ' — ' + r.name;
+  document.getElementById('m-ref').textContent = r.id;
+  document.getElementById('m-div').textContent = r.div + ' Division';
+  document.getElementById('m-range').textContent = r.range;
+  document.getElementById('m-officer').textContent = r.officer;
+  document.getElementById('m-status').innerHTML = statusTag(r.status);
+
+  // Comments
+  const cmtSec = document.getElementById('m-cmt-sec');
+  cmtSec.style.display = 'block';
+  const cmtList = document.getElementById('m-cmt-list');
+  cmtList.innerHTML = r.comments.length === 0
+    ? '<div style="color:var(--fg3);font-size:12.5px;padding:2px 0">No comments yet.</div>'
+    : r.comments.map(c => `<div class="cmt"><div class="cmt-by">${c.by} · ${c.date}</div>${c.text}</div>`).join('');
+  document.getElementById('m-add-cmt').style.display = curRole === 'hq' ? 'block' : 'none';
+
+  // Action buttons
+  const actsEl = document.getElementById('m-acts');
+  let btns = `<button class="btn bo" onclick="closeModal()">✕ Close</button>`;
+  if (curRole === 'dfo' && r.status === 'submitted') {
+    btns += ` <button class="btn bg" onclick="approveReport('${r.id}')">✅ Approve</button>`;
+    btns += ` <button class="btn br" onclick="returnReport('${r.id}')">↩ Return for Correction</button>`;
+  }
+  actsEl.innerHTML = btns + `<span style="margin-left:auto;font-size:10px;color:var(--fg3)">Devbhoomi Uttarakhand · वन विभाग</span>`;
+
+  document.getElementById('modal').classList.add('on');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('on');
+  const inp = document.getElementById('m-cmt-inp');
+  if (inp) inp.value = '';
+  currentReportId = null;
+}
+
+function addComment() {
+  const txt = document.getElementById('m-cmt-inp').value.trim();
+  if (!txt) { toast('Please enter an observation.'); return; }
+  const r = REPORTS.find(x => x.id === currentReportId);
+  if (!r) return;
+  r.comments.push({ by:'HQ M&E Cell', date:'23 Oct 2026', text: txt });
+  document.getElementById('m-cmt-inp').value = '';
+  const cmtList = document.getElementById('m-cmt-list');
+  cmtList.innerHTML = r.comments.map(c => `<div class="cmt"><div class="cmt-by">${c.by} · ${c.date}</div>${c.text}</div>`).join('');
+  toast('💬 Observation added to report.');
+}
+
+// ════════ TOAST ════════
+function toast(msg) {
+  const el = document.createElement('div');
+  el.className = 'tst';
+  el.textContent = msg;
+  document.getElementById('toast').appendChild(el);
+  setTimeout(() => el.classList.add('vis'), 30);
+  setTimeout(() => { el.classList.remove('vis'); setTimeout(() => el.remove(), 400); }, 3500);
+}
+
+// Mobile menu button visibility
+if (window.innerWidth <= 768) {
+  const mb = document.getElementById('mob-menu');
+  if (mb) mb.style.display = 'flex';
+}
+window.addEventListener('resize', () => {
+  const mb = document.getElementById('mob-menu');
+  if (mb) mb.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+});
+</script>
